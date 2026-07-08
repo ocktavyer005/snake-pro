@@ -95,7 +95,7 @@ let gameSpeed = 150;
 let isPaused = false;
 
 let soundOn = true;
-let wrapMode = false;
+let wrapMode = true;
 let snakeSkin = 0;
 
 // Ambil pengaturan musik yang tersimpan
@@ -298,6 +298,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // =======================
+// =======================
 // KONTROL ANDROID
 // =======================
 
@@ -328,6 +329,60 @@ document.getElementById("right").onclick = () => {
     direction = "RIGHT";
   
 };
+// =======================
+// SWIPE CONTROL (RESPONSIF)
+// =======================
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener("touchstart", function(e) {
+  
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  
+}, { passive: true });
+
+canvas.addEventListener("touchmove", function(e) {
+  
+  const x = e.touches[0].clientX;
+  const y = e.touches[0].clientY;
+  
+  const dx = x - touchStartX;
+  const dy = y - touchStartY;
+  
+  // Sensitivitas (10 pixel)
+  if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+    return;
+  }
+  
+  if (Math.abs(dx) > Math.abs(dy)) {
+    
+    if (dx > 0 && direction != "LEFT") {
+      direction = "RIGHT";
+    }
+    
+    if (dx < 0 && direction != "RIGHT") {
+      direction = "LEFT";
+    }
+    
+  } else {
+    
+    if (dy > 0 && direction != "UP") {
+      direction = "DOWN";
+    }
+    
+    if (dy < 0 && direction != "DOWN") {
+      direction = "UP";
+    }
+    
+  }
+  
+  // Reset titik awal agar swipe berikutnya lebih cepat
+  touchStartX = x;
+  touchStartY = y;
+  
+}, { passive: true });
 // ======================================
 // PART 2
 // UPDATE GAME & GAME OVER
@@ -1091,6 +1146,8 @@ closeSettings.onclick = () => {
 // ==========================
 
 const wrapBtn = document.getElementById("wrapBtn");
+
+wrapBtn.innerText = "🌍 Wrap Mode : ON";
 
 wrapBtn.onclick = () => {
   
