@@ -277,3 +277,22 @@ select.btn {
 #settingsPanel.hidden {
     display: none;
 }
+#pauseMenu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background: rgba(8, 20, 33, .95);
+    border: 3px solid #00ff88;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 0 25px #00ff88;
+    z-index: 999;
+}
+
+#pauseMenu h2 {
+    color: white;
+    margin-bottom: 20px;
+}

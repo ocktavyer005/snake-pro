@@ -23,6 +23,11 @@ const closeSettings = document.getElementById("closeSettings");
 const restartBtn = document.getElementById("restartBtn");
 const menuBtn = document.getElementById("menuBtn");
 
+const pauseMenu = document.getElementById("pauseMenu");
+const resumeBtn = document.getElementById("resumeBtn");
+const restartPauseBtn = document.getElementById("restartPauseBtn");
+const menuPauseBtn = document.getElementById("menuPauseBtn");
+
 const controls = document.getElementById("controls");
 
 const scoreText = document.getElementById("score");
@@ -919,23 +924,11 @@ if (pauseBtn) {
     
     playSound(clickSound);
     
-    if (isPaused) {
-      
-      loop = setInterval(update, gameSpeed);
-      
-      isPaused = false;
-      
-      pauseBtn.innerText = "⏸ PAUSE";
-      
-    } else {
-      
-      clearInterval(loop);
-      
-      isPaused = true;
-      
-      pauseBtn.innerText = "▶ RESUME";
-      
-    }
+    clearInterval(loop);
+    
+    isPaused = true;
+    
+    pauseMenu.classList.remove("hidden");
     
   };
   
@@ -978,6 +971,59 @@ bgm.currentTime = 0;
   clearInterval(loop);
   
   gameOverPanel.classList.add("hidden");
+  
+  game.classList.add("hidden");
+  
+  menu.classList.remove("hidden");
+  
+};
+// ==========================
+// MENU PAUSE
+// ==========================
+
+resumeBtn.onclick = () => {
+  
+  playSound(clickSound);
+  
+  pauseMenu.classList.add("hidden");
+  
+  isPaused = false;
+  
+  loop = setInterval(update, gameSpeed);
+  
+};
+
+restartPauseBtn.onclick = () => {
+  
+  playSound(clickSound);
+  
+  pauseMenu.classList.add("hidden");
+  
+  controls.style.display = "block";
+  
+  gameOverPanel.classList.add("hidden");
+  
+  if (musicOn) {
+    
+    bgm.currentTime = 0;
+    bgm.play().catch(() => {});
+    
+  }
+  
+  startGame();
+  
+};
+
+menuPauseBtn.onclick = () => {
+  
+  playSound(clickSound);
+  
+  clearInterval(loop);
+  
+  bgm.pause();
+  bgm.currentTime = 0;
+  
+  pauseMenu.classList.add("hidden");
   
   game.classList.add("hidden");
   
