@@ -1285,5 +1285,4 @@ if ("serviceWorker" in navigator) {
       });
     
   });
-  
-}
+};
