@@ -1285,4 +1285,20 @@ if ("serviceWorker" in navigator) {
       });
     
   });
-};
+  
+}
+// ==========================
+// ABOUT PANEL
+// ==========================
+
+const aboutBtn = document.getElementById("aboutBtn");
+const aboutPanel = document.getElementById("aboutPanel");
+const closeAboutBtn = document.getElementById("closeAboutBtn");
+
+aboutBtn.addEventListener("click", () => {
+  aboutPanel.classList.remove("hidden");
+});
+
+closeAboutBtn.addEventListener("click", () => {
+  aboutPanel.classList.add("hidden");
+});
